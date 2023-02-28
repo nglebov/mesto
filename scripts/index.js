@@ -26,3 +26,60 @@ function handleFormSubmit (evt) {
 
 let formElement = document.querySelector('.popup__form-edit')
 formElement.addEventListener('submit', handleFormSubmit);
+
+//массив с карточкми по умолчанию
+
+const initialCards = [
+    {
+        name: 'Архыз',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+    },
+    {
+        name: 'Челябинская область',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+    },
+    {
+        name: 'Иваново',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+    },
+    {
+        name: 'Камчатка',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+    },
+    {
+        name: 'Холмогорский район',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+    },
+    {
+        name: 'Байкал',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+    }
+];
+
+//находим контейнер
+const cardsConteiner = document.querySelector('.cards__list');
+const template = document.querySelector('#card-template');
+
+// функция создания карточки
+const createCard = (places) => {
+    const card = template.content.querySelector('.card').cloneNode(true);
+    const cardTitle = card.querySelector('.card__title');
+    cardTitle.textContent = places.name;
+    const cardImage = card.querySelector('.card__image');
+    cardImage.src = places.link;
+    return card;
+}
+
+const renderCard = (cardName) => {
+    cardsConteiner.append(createCard(cardName));
+}
+
+initialCards.forEach((places) => {
+    renderCard(places);
+});
+
+
+
+// добавление новой карточки
+const newCardButton = document.querySelector('.profile__add-button');
+newCardButton.addEventListener('click', popupToggle);
